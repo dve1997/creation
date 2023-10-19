@@ -76,19 +76,19 @@ const modals = () => {
 
   //   showModalsTime(".popup-consultation", 3000);
 
-  function showModalsScroll(selector) {
-    window.addEventListener("scroll", (e) => {
-      if (
-        !btnPressed &&
-        window.scrollY + document.documentElement.clientHeight >=
-          document.documentElement.scrollHeight
-      ) {
-        document.querySelector(selector).click();
-      }
-    });
-  }
+  // function showModalsScroll(selector) {
+  //   window.addEventListener("scroll", (e) => {
+  //     if (
+  //       !btnPressed &&
+  //       window.scrollY + document.documentElement.clientHeight >=
+  //         document.documentElement.scrollHeight
+  //     ) {
+  //       document.querySelector(selector).click();
+  //     }
+  //   });
+  // }
 
-  showModalsScroll(".fixed-gift");
+  // showModalsScroll(".fixed-gift");
 };
 
 export default modals;
