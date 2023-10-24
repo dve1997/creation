@@ -131,7 +131,7 @@ const langFilling = selector => {
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
-const masks = selector => {
+const mask = selector => {
   function createMask(event) {
     let matrix = "+7 (___) ___ __ __",
       i = 0,
@@ -163,7 +163,7 @@ const masks = selector => {
     item.addEventListener("blur", createMask);
   });
 };
-/* harmony default export */ __webpack_exports__["default"] = (masks);
+/* harmony default export */ __webpack_exports__["default"] = (mask);
 
 /***/ }),
 
@@ -209,7 +209,6 @@ const modals = () => {
   showModals(".button-design", ".popup-design", ".popup-close", ".popup-content");
   showModals(".button-consultation", ".popup-consultation", ".popup-close", ".popup-content");
   showModals(".fixed-gift", ".popup-gift", ".popup-close", ".popup-content");
-  showModals(".button-transparent", ".hidden-cast");
 
   //   function showModalsTime(selector, time) {
   //     setTimeout(() => {
@@ -246,6 +245,28 @@ const modals = () => {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (modals);
+
+/***/ }),
+
+/***/ "./src/js/modules/showCardsStyles.js":
+/*!*******************************************!*\
+  !*** ./src/js/modules/showCardsStyles.js ***!
+  \*******************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+const showCardsStyles = () => {
+  const cards = document.querySelectorAll(".styles-2"),
+    btn = document.querySelector(".button-styles");
+  btn.addEventListener("click", e => {
+    cards.forEach(item => {
+      item.classList.remove("hidden-lg", "hidden-md", "hidden-sm", "hidden-xs");
+      item.classList.add("col-sm-3", "col-sm-offset-0", "col-xs-10", "col-xs-offset-1");
+    });
+    btn.remove();
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (showCardsStyles);
 
 /***/ }),
 
@@ -371,6 +392,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/forms */ "./src/js/modules/forms.js");
 /* harmony import */ var _modules_langFilling__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/langFilling */ "./src/js/modules/langFilling.js");
 /* harmony import */ var _modules_masks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/masks */ "./src/js/modules/masks.js");
+/* harmony import */ var _modules_showCardsStyles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/showCardsStyles */ "./src/js/modules/showCardsStyles.js");
+
 
 
 
@@ -385,6 +408,7 @@ document.addEventListener("DOMContentLoaded", e => {
   (0,_modules_langFilling__WEBPACK_IMPORTED_MODULE_3__["default"])('[name = "name"]');
   (0,_modules_langFilling__WEBPACK_IMPORTED_MODULE_3__["default"])('[name = "message"]');
   (0,_modules_masks__WEBPACK_IMPORTED_MODULE_4__["default"])('[name = "phone"]');
+  (0,_modules_showCardsStyles__WEBPACK_IMPORTED_MODULE_5__["default"])();
 });
 }();
 /******/ })()

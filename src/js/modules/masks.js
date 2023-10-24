@@ -1,4 +1,4 @@
-const masks = (selector) => {
+const mask = (selector) => {
   function createMask(event) {
     let matrix = "+7 (___) ___ __ __",
       i = 0,
@@ -42,4 +42,4 @@ const masks = (selector) => {
   });
 };
 
-export default masks;
+export default mask;

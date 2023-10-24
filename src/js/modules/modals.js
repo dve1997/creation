@@ -55,7 +55,6 @@ const modals = () => {
     ".popup-content"
   );
   showModals(".fixed-gift", ".popup-gift", ".popup-close", ".popup-content");
-  showModals(".button-transparent", ".hidden-cast");
 
   //   function showModalsTime(selector, time) {
   //     setTimeout(() => {

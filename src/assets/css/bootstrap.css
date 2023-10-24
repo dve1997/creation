@@ -8235,17 +8235,17 @@ button.close {
   }
 }
 
-/* @media (min-width: 1200px) {
+@media (min-width: 1200px) {
   .hidden-lg {
     display: none !important;
   }
-} */
+}
 
-@media (min-width: 1200px) {
+/* @media (min-width: 1200px) {
   .hidden-cast {
     display: none;
   }
-}
+} */
 
 .visible-print {
   display: none !important;
