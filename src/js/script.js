@@ -6,6 +6,7 @@ import forms from "./modules/forms";
 import langFilling from "./modules/langFilling";
 import mask from "./modules/masks";
 import showCardsStyles from "./modules/showCardsStyles";
+import calc from "./modules/calc";
 
 document.addEventListener("DOMContentLoaded", (e) => {
   modals();
@@ -15,4 +16,5 @@ document.addEventListener("DOMContentLoaded", (e) => {
   langFilling('[name = "message"]');
   mask('[name = "phone"]');
   showCardsStyles();
+  calc("#size", "#material", "#options", ".promocode");
 });

@@ -55,7 +55,7 @@ const forms = () => {
         target.style.display = "none";
       }
 
-      if (target.closest(".popup-design")) {
+      if (target.closest(".popup-design") || target.closest(".calc")) {
         postData("assets/server.php", dataForm)
           .then((dataResp) => {
             console.log(dataResp);
