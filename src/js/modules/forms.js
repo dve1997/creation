@@ -1,3 +1,5 @@
+import { postData } from "../services/requests";
+
 const forms = () => {
   const forms = document.querySelectorAll("form");
 
@@ -29,18 +31,12 @@ const forms = () => {
     });
   });
 
-  const sendingForm = async (url, data) => {
-    let res = await fetch(url, { method: "POST", body: data });
-
-    return await res.text();
-  };
-
   forms.forEach((item) => {
     item.addEventListener("submit", (e) => {
       e.preventDefault();
       let target = e.target;
 
-      let data = new FormData(item);
+      let dataForm = new FormData(item);
 
       statusText.textContent = messenge.loading;
       statusText.style.textAlign = "center";
@@ -59,27 +55,8 @@ const forms = () => {
         target.style.display = "none";
       }
 
-      if (target.closest(".popup-consultation")) {
-        sendingForm("assets/questions.php", data)
-          .then((dataResp) => {
-            console.log(dataResp);
-            showInfMes(messenge.loadImg, messenge.load);
-          })
-          .catch((error) => {
-            console.log(error);
-            showInfMes(messenge.failImg, messenge.fail);
-          })
-          .finally(() => {
-            setTimeout(() => {
-              statusImg.remove();
-              statusText.remove();
-              title.style.display = "block";
-              target.style.display = "block";
-              target.reset();
-            }, 3000);
-          });
-      } else {
-        sendingForm("assets/server.php", data)
+      if (target.closest(".popup-design")) {
+        postData("assets/server.php", dataForm)
           .then((dataResp) => {
             console.log(dataResp);
             showInfMes(messenge.loadImg, messenge.load);
@@ -98,6 +75,25 @@ const forms = () => {
               upload.forEach((item) => {
                 item.previousElementSibling.textContent = "Файл не выбран";
               });
+            }, 3000);
+          });
+      } else {
+        postData("assets/questions.php", dataForm)
+          .then((dataResp) => {
+            console.log(dataResp);
+            showInfMes(messenge.loadImg, messenge.load);
+          })
+          .catch((error) => {
+            console.log(error);
+            showInfMes(messenge.failImg, messenge.fail);
+          })
+          .finally(() => {
+            setTimeout(() => {
+              statusImg.remove();
+              statusText.remove();
+              title.style.display = "block";
+              target.style.display = "block";
+              target.reset();
             }, 3000);
           });
       }

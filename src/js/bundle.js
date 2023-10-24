@@ -9,6 +9,8 @@
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _services_requests__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/requests */ "./src/js/services/requests.js");
+
 const forms = () => {
   const forms = document.querySelectorAll("form");
   const statusImg = document.createElement("img"),
@@ -33,18 +35,11 @@ const forms = () => {
       showFileName.textContent = `${fileName}`;
     });
   });
-  const sendingForm = async (url, data) => {
-    let res = await fetch(url, {
-      method: "POST",
-      body: data
-    });
-    return await res.text();
-  };
   forms.forEach(item => {
     item.addEventListener("submit", e => {
       e.preventDefault();
       let target = e.target;
-      let data = new FormData(item);
+      let dataForm = new FormData(item);
       statusText.textContent = messenge.loading;
       statusText.style.textAlign = "center";
       statusText.style.paddingTop = "15px";
@@ -60,24 +55,8 @@ const forms = () => {
         title.style.display = "none";
         target.style.display = "none";
       }
-      if (target.closest(".popup-consultation")) {
-        sendingForm("assets/questions.php", data).then(dataResp => {
-          console.log(dataResp);
-          showInfMes(messenge.loadImg, messenge.load);
-        }).catch(error => {
-          console.log(error);
-          showInfMes(messenge.failImg, messenge.fail);
-        }).finally(() => {
-          setTimeout(() => {
-            statusImg.remove();
-            statusText.remove();
-            title.style.display = "block";
-            target.style.display = "block";
-            target.reset();
-          }, 3000);
-        });
-      } else {
-        sendingForm("assets/server.php", data).then(dataResp => {
+      if (target.closest(".popup-design")) {
+        (0,_services_requests__WEBPACK_IMPORTED_MODULE_0__.postData)("assets/server.php", dataForm).then(dataResp => {
           console.log(dataResp);
           showInfMes(messenge.loadImg, messenge.load);
         }).catch(error => {
@@ -93,6 +72,22 @@ const forms = () => {
             upload.forEach(item => {
               item.previousElementSibling.textContent = "Файл не выбран";
             });
+          }, 3000);
+        });
+      } else {
+        (0,_services_requests__WEBPACK_IMPORTED_MODULE_0__.postData)("assets/questions.php", dataForm).then(dataResp => {
+          console.log(dataResp);
+          showInfMes(messenge.loadImg, messenge.load);
+        }).catch(error => {
+          console.log(error);
+          showInfMes(messenge.failImg, messenge.fail);
+        }).finally(() => {
+          setTimeout(() => {
+            statusImg.remove();
+            statusText.remove();
+            title.style.display = "block";
+            target.style.display = "block";
+            target.reset();
           }, 3000);
         });
       }
@@ -113,7 +108,7 @@ __webpack_require__.r(__webpack_exports__);
 const langFilling = selector => {
   const inputs = document.querySelectorAll(selector);
   inputs.forEach(item => {
-    item.addEventListener("keydown", e => {
+    item.addEventListener("keypress", e => {
       if (e.key.match(/[^а-яё 0-9]/gi)) {
         e.preventDefault();
       }
@@ -255,16 +250,49 @@ const modals = () => {
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _services_requests__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/requests */ "./src/js/services/requests.js");
+
 const showCardsStyles = () => {
-  const cards = document.querySelectorAll(".styles-2"),
-    btn = document.querySelector(".button-styles");
-  btn.addEventListener("click", e => {
-    cards.forEach(item => {
-      item.classList.remove("hidden-lg", "hidden-md", "hidden-sm", "hidden-xs");
-      item.classList.add("col-sm-3", "col-sm-offset-0", "col-xs-10", "col-xs-offset-1");
+  //   const cards = document.querySelectorAll(".styles-2"),
+  //     btn = document.querySelector(".button-styles");
+
+  //   btn.addEventListener("click", (e) => {
+  //     cards.forEach((item) => {
+  //       item.classList.remove("hidden-lg", "hidden-md", "hidden-sm", "hidden-xs");
+  //       item.classList.add(
+  //         "col-sm-3",
+  //         "col-sm-offset-0",
+  //         "col-xs-10",
+  //         "col-xs-offset-1"
+  //       );
+  //     });
+
+  //     btn.remove();
+  //   });
+
+  (0,_services_requests__WEBPACK_IMPORTED_MODULE_0__.getData)("http://localhost:3000/styles").then(response => showCards(response)).catch(error => console.log(error));
+  function showCards(data) {
+    const showCards = document.querySelector("#styles .row"),
+      btn = document.querySelector(".button-styles");
+    btn.addEventListener("click", function (e) {
+      data.forEach(_ref => {
+        let {
+          src,
+          title,
+          link
+        } = _ref;
+        const card = document.createElement("div");
+        card.classList.add("col-sm-3", "col-sm-offset-0", "col-xs-10", "col-xs-offset-1");
+        card.innerHTML = `
+          <div class='styles-block'>
+   			<img src=${src} alt>
+  				<h4>${title}</h4>
+   			<a href=${link}>Подробнее</a>
+  			</div>`;
+        showCards.append(card);
+      });
     });
-    btn.remove();
-  });
+  }
 };
 /* harmony default export */ __webpack_exports__["default"] = (showCardsStyles);
 
@@ -339,6 +367,32 @@ const sliders = () => {
 };
 /* harmony default export */ __webpack_exports__["default"] = (sliders);
 
+/***/ }),
+
+/***/ "./src/js/services/requests.js":
+/*!*************************************!*\
+  !*** ./src/js/services/requests.js ***!
+  \*************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getData: function() { return /* binding */ getData; },
+/* harmony export */   postData: function() { return /* binding */ postData; }
+/* harmony export */ });
+const postData = async (url, data) => {
+  let res = await fetch(url, {
+    method: "POST",
+    body: data
+  });
+  return await res.text();
+};
+const getData = async url => {
+  let res = await fetch(url);
+  return await res.json();
+};
+
+
 /***/ })
 
 /******/ 	});
@@ -368,6 +422,23 @@ const sliders = () => {
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	!function() {
 /******/ 		// define __esModule on exports
