@@ -2097,3 +2097,8 @@ h4 {
     width: 25rem;
   }
 }
+
+/* Customs */
+.text-align {
+  text-align: center;
+}
