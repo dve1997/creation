@@ -354,6 +354,48 @@ const modals = () => {
 
 /***/ }),
 
+/***/ "./src/js/modules/replacePict.js":
+/*!***************************************!*\
+  !*** ./src/js/modules/replacePict.js ***!
+  \***************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+const replacePict = selector => {
+  const blocksPaint = document.querySelectorAll(selector);
+  function showPict(block, i) {
+    const img = block.firstElementChild,
+      descr = block.querySelectorAll("p:not(.sizes-hit)");
+    let count = i + 1;
+    img.setAttribute("src", `assets/img/sizes-${count}-1.png`);
+    descr.forEach(item => {
+      item.style.display = "none";
+    });
+  }
+  function hidePict(block, i) {
+    const img = block.firstElementChild,
+      descr = block.querySelectorAll("p:not(.sizes-hit)");
+    let count = i + 1;
+    img.setAttribute("src", `assets/img/sizes-${count}.png`);
+    descr.forEach(item => {
+      item.style.display = "block";
+    });
+  }
+  blocksPaint.forEach((item, i) => {
+    item.addEventListener("mouseenter", e => {
+      showPict(item, i);
+    });
+  });
+  blocksPaint.forEach((item, i) => {
+    item.addEventListener("mouseleave", e => {
+      hidePict(item, i);
+    });
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (replacePict);
+
+/***/ }),
+
 /***/ "./src/js/modules/showCardsStyles.js":
 /*!*******************************************!*\
   !*** ./src/js/modules/showCardsStyles.js ***!
@@ -577,6 +619,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_showCardsStyles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/showCardsStyles */ "./src/js/modules/showCardsStyles.js");
 /* harmony import */ var _modules_calc__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/calc */ "./src/js/modules/calc.js");
 /* harmony import */ var _modules_filter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/filter */ "./src/js/modules/filter.js");
+/* harmony import */ var _modules_replacePict__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/replacePict */ "./src/js/modules/replacePict.js");
+
 
 
 
@@ -597,6 +641,7 @@ document.addEventListener("DOMContentLoaded", e => {
   (0,_modules_showCardsStyles__WEBPACK_IMPORTED_MODULE_5__["default"])();
   (0,_modules_calc__WEBPACK_IMPORTED_MODULE_6__["default"])("#size", "#material", "#options", ".promocode");
   (0,_modules_filter__WEBPACK_IMPORTED_MODULE_7__["default"])();
+  (0,_modules_replacePict__WEBPACK_IMPORTED_MODULE_8__["default"])(".sizes-block");
 });
 }();
 /******/ })()
