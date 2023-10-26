@@ -10,6 +10,7 @@ import calc from "./modules/calc";
 import filter from "./modules/filter";
 import replacePict from "./modules/replacePict";
 import accordion from "./modules/accordion";
+import burger from "./modules/burger";
 
 document.addEventListener("DOMContentLoaded", (e) => {
   modals();
@@ -23,4 +24,5 @@ document.addEventListener("DOMContentLoaded", (e) => {
   filter();
   replacePict(".sizes-block");
   accordion(".accordion-heading");
+  burger(".burger", ".burger-menu");
 });

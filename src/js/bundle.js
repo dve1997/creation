@@ -42,6 +42,42 @@ const accordion = questionSelector => {
 
 /***/ }),
 
+/***/ "./src/js/modules/burger.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/burger.js ***!
+  \**********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+const burger = (btnSelector, burgSelector, liSelector) => {
+  const btn = document.querySelector(btnSelector),
+    burgMenu = document.querySelector(burgSelector);
+  btn.addEventListener("click", e => {
+    if (window.innerWidth < 993) {
+      if (burgMenu.style.display == "none") {
+        burgMenu.style.display = "block";
+      } else {
+        burgMenu.style.display = "none";
+      }
+    }
+  });
+  document.addEventListener("click", e => {
+    if (window.innerWidth < 993) {
+      if (!e.target.closest(".burger") && !e.target.closest(".burger-menu")) {
+        burgMenu.style.display = "none";
+      }
+    }
+  });
+  window.addEventListener("resize", e => {
+    if (window.innerWidth > 993) {
+      burgMenu.style.display = "none";
+    }
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (burger);
+
+/***/ }),
+
 /***/ "./src/js/modules/calc.js":
 /*!********************************!*\
   !*** ./src/js/modules/calc.js ***!
@@ -661,6 +697,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_filter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/filter */ "./src/js/modules/filter.js");
 /* harmony import */ var _modules_replacePict__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/replacePict */ "./src/js/modules/replacePict.js");
 /* harmony import */ var _modules_accordion__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/accordion */ "./src/js/modules/accordion.js");
+/* harmony import */ var _modules_burger__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/burger */ "./src/js/modules/burger.js");
+
 
 
 
@@ -685,6 +723,7 @@ document.addEventListener("DOMContentLoaded", e => {
   (0,_modules_filter__WEBPACK_IMPORTED_MODULE_7__["default"])();
   (0,_modules_replacePict__WEBPACK_IMPORTED_MODULE_8__["default"])(".sizes-block");
   (0,_modules_accordion__WEBPACK_IMPORTED_MODULE_9__["default"])(".accordion-heading");
+  (0,_modules_burger__WEBPACK_IMPORTED_MODULE_10__["default"])(".burger", ".burger-menu");
 });
 }();
 /******/ })()
