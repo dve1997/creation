@@ -1085,9 +1085,20 @@ h4 {
 }
 
 .often-questions .accordion-block {
+  display: none;
   margin-top: 1rem;
   background-color: #f7e7e6;
   padding: 3rem 4rem;
+}
+
+.often-questions .accordion-heading .active-quest {
+  color: #c51abb;
+  font-weight: 900;
+  border-bottom: none;
+}
+
+.often-questions .accordion-block.active-accord {
+  display: block;
 }
 
 .often-questions .accordion-block:before {

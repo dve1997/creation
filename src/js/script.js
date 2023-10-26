@@ -9,6 +9,7 @@ import showCardsStyles from "./modules/showCardsStyles";
 import calc from "./modules/calc";
 import filter from "./modules/filter";
 import replacePict from "./modules/replacePict";
+import accordion from "./modules/accordion";
 
 document.addEventListener("DOMContentLoaded", (e) => {
   modals();
@@ -21,4 +22,5 @@ document.addEventListener("DOMContentLoaded", (e) => {
   calc("#size", "#material", "#options", ".promocode");
   filter();
   replacePict(".sizes-block");
+  accordion(".accordion-heading");
 });
