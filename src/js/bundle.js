@@ -472,6 +472,52 @@ const replacePict = selector => {
 
 /***/ }),
 
+/***/ "./src/js/modules/scrolling.js":
+/*!*************************************!*\
+  !*** ./src/js/modules/scrolling.js ***!
+  \*************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+const scrolling = selector => {
+  const btn = document.querySelector(selector);
+  window.addEventListener("scroll", e => {
+    if (window.scrollY > 1500) {
+      btn.style.opacity = "1";
+    } else {
+      btn.style.opacity = "0";
+    }
+  });
+  let links = document.querySelectorAll('[href^="#"]'),
+    speed = 0.3;
+  links.forEach(link => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      let widthTop = document.documentElement.scrollTop,
+        hash = this.hash,
+        widthUp = document.querySelector(hash).getBoundingClientRect().top,
+        start = null;
+      requestAnimationFrame(steps);
+      function steps(time) {
+        if (start === null) {
+          start = time;
+        }
+        let progress = time - start,
+          r = widthUp < 0 ? Math.max(widthTop - progress / speed, widthTop + widthUp) : Math.min(widthTop + progress / speed, widthTop + widthUp);
+        document.documentElement.scrollTo(0, r);
+        if (r != widthTop + widthUp) {
+          requestAnimationFrame(steps);
+        } else {
+          location.hash = hash;
+        }
+      }
+    });
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (scrolling);
+
+/***/ }),
+
 /***/ "./src/js/modules/showCardsStyles.js":
 /*!*******************************************!*\
   !*** ./src/js/modules/showCardsStyles.js ***!
@@ -698,6 +744,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_replacePict__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/replacePict */ "./src/js/modules/replacePict.js");
 /* harmony import */ var _modules_accordion__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/accordion */ "./src/js/modules/accordion.js");
 /* harmony import */ var _modules_burger__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/burger */ "./src/js/modules/burger.js");
+/* harmony import */ var _modules_scrolling__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/scrolling */ "./src/js/modules/scrolling.js");
+
 
 
 
@@ -724,6 +772,7 @@ document.addEventListener("DOMContentLoaded", e => {
   (0,_modules_replacePict__WEBPACK_IMPORTED_MODULE_8__["default"])(".sizes-block");
   (0,_modules_accordion__WEBPACK_IMPORTED_MODULE_9__["default"])(".accordion-heading");
   (0,_modules_burger__WEBPACK_IMPORTED_MODULE_10__["default"])(".burger", ".burger-menu");
+  (0,_modules_scrolling__WEBPACK_IMPORTED_MODULE_11__["default"])(".pageup");
 });
 }();
 /******/ })()

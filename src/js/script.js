@@ -11,6 +11,7 @@ import filter from "./modules/filter";
 import replacePict from "./modules/replacePict";
 import accordion from "./modules/accordion";
 import burger from "./modules/burger";
+import scrolling from "./modules/scrolling";
 
 document.addEventListener("DOMContentLoaded", (e) => {
   modals();
@@ -25,4 +26,5 @@ document.addEventListener("DOMContentLoaded", (e) => {
   replacePict(".sizes-block");
   accordion(".accordion-heading");
   burger(".burger", ".burger-menu");
+  scrolling(".pageup");
 });
