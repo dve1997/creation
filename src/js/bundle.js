@@ -111,6 +111,66 @@ const calc = (sizePaint, materialPaint, optionsPaint, promocodePaint) => {
 
 /***/ }),
 
+/***/ "./src/js/modules/drop.js":
+/*!********************************!*\
+  !*** ./src/js/modules/drop.js ***!
+  \********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+const drop = () => {
+  const inputs = document.querySelectorAll('[name="upload"]');
+  const options = {
+    capture: false
+  };
+  ["dragenter", "dragleave", "dragover", "drop"].forEach(eChange => {
+    inputs.forEach(item => {
+      item.addEventListener(eChange, preventDefaults, options);
+    });
+  });
+  function preventDefaults(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  ["dragenter", "dragover"].forEach(eChange => {
+    inputs.forEach(item => {
+      item.addEventListener(eChange, showArea, options);
+    });
+  });
+  function showArea(e) {
+    e.target.closest(".file_upload").style.backgroundColor = "pink";
+    e.target.closest(".file_upload").style.border = "3px solid black";
+  }
+  ["dragleave", "drop"].forEach(eChange => {
+    inputs.forEach(item => {
+      item.addEventListener(eChange, unshowArea, options);
+    });
+  });
+  function unshowArea(e) {
+    if (e.target.closest(".popup-design")) {
+      e.target.closest(".file_upload").style.backgroundColor = "#ededed";
+    } else {
+      e.target.closest(".file_upload").style.backgroundColor = "#fff";
+    }
+    e.target.closest(".file_upload").style.border = "none";
+  }
+  inputs.forEach(item => {
+    item.addEventListener("drop", e => {
+      item.files = e.dataTransfer.files;
+      let target = e.target;
+      let dots;
+      const showFileName = target.previousElementSibling;
+      let fileName = target.files[0].name;
+      fileName.split(".")[0].length > 5 ? dots = "..." : dots = ".";
+      fileName = fileName.split(".")[0].slice(0, 5) + dots + fileName.split(".")[1];
+      showFileName.textContent = `${fileName}`;
+    });
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (drop);
+
+/***/ }),
+
 /***/ "./src/js/modules/filter.js":
 /*!**********************************!*\
   !*** ./src/js/modules/filter.js ***!
@@ -745,6 +805,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_accordion__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/accordion */ "./src/js/modules/accordion.js");
 /* harmony import */ var _modules_burger__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/burger */ "./src/js/modules/burger.js");
 /* harmony import */ var _modules_scrolling__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/scrolling */ "./src/js/modules/scrolling.js");
+/* harmony import */ var _modules_drop__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/drop */ "./src/js/modules/drop.js");
+
 
 
 
@@ -773,6 +835,7 @@ document.addEventListener("DOMContentLoaded", e => {
   (0,_modules_accordion__WEBPACK_IMPORTED_MODULE_9__["default"])(".accordion-heading");
   (0,_modules_burger__WEBPACK_IMPORTED_MODULE_10__["default"])(".burger", ".burger-menu");
   (0,_modules_scrolling__WEBPACK_IMPORTED_MODULE_11__["default"])(".pageup");
+  (0,_modules_drop__WEBPACK_IMPORTED_MODULE_12__["default"])();
 });
 }();
 /******/ })()
